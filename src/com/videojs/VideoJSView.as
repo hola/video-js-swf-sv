@@ -44,6 +44,7 @@ package com.videojs{
         private var _playerIdle:Boolean = true;
         private var _userActivity:Boolean = true;
         private var _userActive:Boolean = true;
+        private var _posterLoaded:Boolean = false;
 
         private function log(...arguments):void{
             ExternalInterface.call.apply(null, ["console.log"].concat(arguments));
@@ -99,6 +100,7 @@ package com.videojs{
             var __request:URLRequest = new URLRequest(_model.poster);
             var __context:LoaderContext = new LoaderContext();
             //__context.checkPolicyFile = true;
+            _posterLoaded = false;
             try { _uiPosterImage.load(__request, __context); } catch(e:Error){}
         }
 
@@ -233,14 +235,13 @@ package com.videojs{
             // asset that loaded successfully, but doesn't have an associated crossdomain
             // policy : /
             try {
-                // only do this stuff if there's a loaded poster to operate on
-                if (!_uiPosterImage.content)
+                if (!_posterLoaded)
                     return;
                 var __targetWidth:int, __targetHeight:int;
                 var __availableWidth:int = _model.stageRect.width;
                 var __availableHeight:int = _model.stageRect.height;
-                var __nativeWidth:int = _uiPosterImage.content.width;
-                var __nativeHeight:int = _uiPosterImage.content.height;
+                var __nativeWidth:int = _uiPosterImage.contentLoaderInfo.width;
+                var __nativeHeight:int = _uiPosterImage.contentLoaderInfo.height;
                 // first, size the whole thing down based on the available width
                 __targetWidth = __availableWidth;
                 __targetHeight = __targetWidth * (__nativeHeight / __nativeWidth);
@@ -275,6 +276,7 @@ package com.videojs{
         private function onPosterLoadComplete(e:Event):void{
             // turning smoothing on for assets that haven't cleared the security sandbox / crossdomain hurdle		
             // will result in the call stack freezing, so we need to wrap access to Loader.content		
+            _posterLoaded = true;
             try {
                 (_uiPosterImage.content as Bitmap).smoothing = true;
             } catch(e:Error){}
