@@ -37,6 +37,7 @@ package com.videojs{
         private var _backgroundAlpha:Number = 0;
         private var _volume:Number = 1;
         private var _autoplay:Boolean = false;
+        private var _controls:Boolean = false;
         private var _preload:String = "auto";
         private var _loop:Boolean = false;
         private var _src:String = "";
@@ -191,6 +192,17 @@ package com.videojs{
         }
         public function set autoplay(pValue:Boolean):void {
             _autoplay = pValue;
+        }
+
+        public function get controls():Boolean{
+            return _controls;
+        }
+        public function set controls(pValue:Boolean):void {
+            if (_controls!=pValue)
+            {
+                _controls = pValue;
+                broadcastEvent(new VideoJSEvent(VideoJSEvent.CONTROLS_SET, {}));
+            }
         }
 
         public function get src():String{
@@ -423,6 +435,7 @@ package com.videojs{
          *
          */
         public function broadcastEventExternally(... args):void {
+            broadcastEvent(new Event(args[0]));
             if(_jsEventProxyName != ""){
                 if(ExternalInterface.available){
                     var __incomingArgs:* = args as Array;

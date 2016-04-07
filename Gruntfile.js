@@ -212,6 +212,7 @@ module.exports = function (grunt) {
         cmdLineOpts.push(f.dest);
       }
 
+      cmdLineOpts.push('-target-player=10.2');
       cmdLineOpts.push('-define=CONFIG::version, "' + pkg.version + '"');
       cmdLineOpts.push('--');
       cmdLineOpts.push.apply(cmdLineOpts, srcList);

@@ -12,6 +12,7 @@ package{
     import flash.events.Event;
     import flash.events.MouseEvent;
     import flash.events.TimerEvent;
+    import flash.events.FullScreenEvent;
     import flash.external.ExternalInterface;
     import flash.geom.Rectangle;
     import flash.system.Security;
@@ -49,10 +50,8 @@ package{
                 registerExternalMethods();
             }
 
-            _app = new VideoJSApp();
+            _app = new VideoJSApp(stage.stageWidth, stage.stageHeight);
             addChild(_app);
-
-            _app.model.stageRect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
 
             // add content-menu version info
 
@@ -124,6 +123,9 @@ package{
                 _app.model.autoplay = true;
             }
 
+            if (loaderInfo.parameters.controls == "true")
+                _app.model.controls = true;
+
             if(loaderInfo.parameters.preload != undefined && loaderInfo.parameters.preload != ""){
                 _app.model.preload = String(loaderInfo.parameters.preload);
             }
@@ -163,9 +165,14 @@ package{
         private function onAddedToStage(e:Event):void{
             stage.addEventListener(MouseEvent.CLICK, onStageClick);
             stage.addEventListener(Event.RESIZE, onStageResize);
+            stage.addEventListener(FullScreenEvent.FULL_SCREEN, onDisplayStageChanged, false, 0, true);
             stage.scaleMode = StageScaleMode.NO_SCALE;
             stage.align = StageAlign.TOP_LEFT;
             _stageSizeTimer.start();
+        }
+
+        private function onDisplayStageChanged(event:FullScreenEvent):void{
+            _app.model.broadcastEvent(new VideoJSEvent(VideoJSEvent.FULL_SCREEN_CHANGE, {}));
         }
 
         private function onStageSizeTimerTick(e:TimerEvent):void{
@@ -290,6 +297,9 @@ package{
                 case "rtmpStream":
                     return _app.model.rtmpStream;
                     break;
+                case "controls":
+                    return _app.model.controls;
+                    break;
             }
             return null;
         }
@@ -348,6 +358,9 @@ package{
                     break;
                 default:
                     _app.model.broadcastErrorEventExternally(ExternalErrorEventName.PROPERTY_NOT_FOUND, pPropertyName);
+                    break;
+                case "controls":
+                    _app.model.controls = Boolean(pValue);
                     break;
             }
         }
