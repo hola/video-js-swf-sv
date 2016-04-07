@@ -124,7 +124,7 @@ package com.apdevblog.ui.video.controls
         {
             if(_barLoading != null)
             {
-                _barLoading.removeEventListener(MouseEvent.CLICK, onClickLoadingBar);
+                _barLoading.removeEventListener(MouseEvent.MOUSE_DOWN, onClickLoadingBar);
                 removeChild(_barLoading);
                 _barLoading = null;
             }
@@ -210,7 +210,7 @@ package com.apdevblog.ui.video.controls
          */
         private function onClickLoadingBar(event:MouseEvent):void
         {
-            _seek(false);
+            _seek(true);
 
             stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp, false, 0, true);
             stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true);
