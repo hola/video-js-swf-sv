@@ -241,6 +241,8 @@ package com.apdevblog.ui.video
 
         override public function set width(width:Number):void
         {
+            if (_controlsWidth==width)
+                return;
             _controlsWidth = width;
 
             if(_bg != null)
