@@ -347,13 +347,21 @@ package com.videojs{
 
         private function onSeek(e:VideoControlsEvent):void{
             var scrubbing:Boolean = e.type==VideoControlsEvent.SCRUB;
-            var to:Number = Math.max(0, Math.min(e.data, 1));
-            if (!_scrubbing && scrubbing && (_wasPlaying = !_model.paused))
-                _model.pause();
-            _model.seekByPercent(to);
-            _videoControls.updatePlaying(to);
-            if (_scrubbing && !scrubbing && _wasPlaying)
-                _model.play();
+            if (_scrubbing && !scrubbing) // end scrubbing
+            {
+                if (_wasPlaying)
+                    _model.play();
+            }
+            else
+            {
+                if (!_scrubbing && scrubbing && (_wasPlaying = !_model.paused))
+                    _model.pause(); // started scrubbing and is playing
+                var d:Number = _model.duration, to:Number = e.data * d;
+                // dont end while scrubbing
+                to = Math.max(0, Math.min(to, d-0.1));
+                _model.seekBySeconds(to);
+                _videoControls.updatePlaying(to/d);
+            }
             _scrubbing = scrubbing;
         }
 
