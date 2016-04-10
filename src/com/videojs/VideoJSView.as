@@ -283,7 +283,6 @@ package com.videojs{
         }
 
         private function showPoster(show:Boolean):void{
-            log(show ? 'show' : 'hide', 'poster');
             _uiPosterImage.visible = show;
         }
 
