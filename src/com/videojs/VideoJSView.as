@@ -30,7 +30,6 @@ package com.videojs{
     public class VideoJSView extends Sprite{
 
         private var _uiVideo:Video;
-        private var _uiPosterContainer:Sprite;
         private var _uiPosterImage:Loader;
         private var _uiBackground:Sprite;
         private var _videoControls:ApdevVideoControls;
@@ -44,6 +43,7 @@ package com.videojs{
         private var _playerIdle:Boolean = true;
         private var _userActivity:Boolean = true;
         private var _userActive:Boolean = true;
+        private var _posterLoading:Boolean = false;
         private var _posterLoaded:Boolean = false;
 
         private function log(...arguments):void{
@@ -77,12 +77,12 @@ package com.videojs{
             _uiBackground.alpha = _model.backgroundAlpha;
             addChild(_uiBackground);
 
-            _uiPosterContainer = new Sprite();
+            var posterContainer:Sprite = new Sprite();
             _uiPosterImage = new Loader();
             _uiPosterImage.contentLoaderInfo.addEventListener(Event.COMPLETE, onPosterLoadComplete);
             showPoster(false);
-            _uiPosterContainer.addChild(_uiPosterImage);
-            addChild(_uiPosterContainer);
+            posterContainer.addChild(_uiPosterImage);
+            addChild(posterContainer);
 
             _uiVideo = new StageVideoProxy();
             _uiVideo.width = _model.stageRect.width;
@@ -92,16 +92,6 @@ package com.videojs{
 
             _model.videoReference = _uiVideo;
             listenForUserActivity();
-        }
-
-        private function loadPoster():void{
-            if (!_model.poster)
-                return;
-            var __request:URLRequest = new URLRequest(_model.poster);
-            var __context:LoaderContext = new LoaderContext();
-            //__context.checkPolicyFile = true;
-            _posterLoaded = false;
-            try { _uiPosterImage.load(__request, __context); } catch(e:Error){}
         }
 
         private function setUserActive(active:Boolean):void{
@@ -159,10 +149,12 @@ package com.videojs{
             updateDisplayState(null);
             showControls(true);
             addChild(_videoControls);
+            loadPoster();
         }
 
         private function disableControls():void{
             log('controls disabled');
+            showPoster(false);
             _positionTimer.stop();
             _loadTimer.stop();
             _model.removeEventListener(ExternalEventName.ON_START, onExternalEvent);
@@ -270,22 +262,35 @@ package com.videojs{
         }
 
         private function onPosterSet(e:VideoJSEvent):void{
-            loadPoster();
+            _model.poster ? loadPoster() : showPoster(false);
+        }
+
+        private function loadPoster():void{
+            if (!_model.poster || !_model.controls || _posterLoading)
+                return;
+            var __request:URLRequest = new URLRequest(_model.poster);
+            var __context:LoaderContext = new LoaderContext();
+            //__context.checkPolicyFile = true;
+            _posterLoading = true;
+            _posterLoaded = false;
+            try { _uiPosterImage.load(__request, __context); } catch(e:Error){}
         }
 
         private function onPosterLoadComplete(e:Event):void{
             // turning smoothing on for assets that haven't cleared the security sandbox / crossdomain hurdle		
             // will result in the call stack freezing, so we need to wrap access to Loader.content		
+            _posterLoading = false;
             _posterLoaded = true;
             try {
                 (_uiPosterImage.content as Bitmap).smoothing = true;
             } catch(e:Error){}
             sizePoster();
-            if (_playerIdle)
+            if (_playerIdle && _model.poster && _model.controls)
                 showPoster(true);
         }
 
         private function showPoster(show:Boolean):void{
+            log(show ? 'show' : 'hide', 'poster');
             _uiPosterImage.visible = show;
         }
 
