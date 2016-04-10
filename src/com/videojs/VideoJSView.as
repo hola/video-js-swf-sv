@@ -20,7 +20,6 @@ package com.videojs{
     import flash.events.SecurityErrorEvent;
     import flash.events.TimerEvent;
     import flash.events.MouseEvent;
-    import flash.external.ExternalInterface;
     import flash.geom.Rectangle;
     import flash.media.Video;
     import flash.net.URLRequest;
@@ -45,10 +44,6 @@ package com.videojs{
         private var _userActive:Boolean = true;
         private var _posterLoading:Boolean = false;
         private var _posterLoaded:Boolean = false;
-
-        private function log(...arguments):void{
-            ExternalInterface.call.apply(null, ["console.log"].concat(arguments));
-        }
 
         public function VideoJSView(){
 
@@ -118,7 +113,6 @@ package com.videojs{
         }
 
         private function enableControls():void{
-            log('controls enabled');
             if (!_model.paused)
                 _positionTimer.start();
             _loadTimer.start();
@@ -153,7 +147,6 @@ package com.videojs{
         }
 
         private function disableControls():void{
-            log('controls disabled');
             showPoster(false);
             _positionTimer.stop();
             _loadTimer.stop();
