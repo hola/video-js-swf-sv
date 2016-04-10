@@ -36,7 +36,6 @@ package com.dreamsocket.media
     import flash.media.Video;
     import flash.media.VideoStatus;
     import flash.net.NetStream;
-    import flash.external.ExternalInterface;
 
     public class StageVideoProxy extends Video
     {
@@ -196,7 +195,6 @@ package com.dreamsocket.media
 
         protected function onRenderStateChanged(p_event:StageVideoEvent):void
         {
-            ExternalInterface.call("console.log", 'renderState', p_event.status);
             if (p_event.status==VideoStatus.UNAVAILABLE)
             {
                 this.teardownStream();
