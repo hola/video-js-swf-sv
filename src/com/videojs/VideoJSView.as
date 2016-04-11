@@ -8,7 +8,6 @@ package com.videojs{
     import com.apdevblog.ui.video.ApdevVideoControls;
     import com.apdevblog.ui.video.style.ApdevVideoPlayerDefaultStyle;
     import com.apdevblog.ui.video.ApdevVideoState;
-    import com.apdevblog.model.vo.VideoMetadataVo;
     import com.apdevblog.events.video.VideoControlsEvent;
 
     import flash.display.Bitmap;
@@ -318,7 +317,7 @@ package com.videojs{
         }
 
         private function updateMeta():void{
-            _videoControls.meta = new VideoMetadataVo(_model.metadata);
+            _videoControls.meta = {duration: _model.duration};
         }
 
         private function onExternalEvent(e:Event):void{

@@ -22,7 +22,6 @@
 package com.apdevblog.ui.video
 {
     import com.apdevblog.events.video.VideoControlsEvent;
-    import com.apdevblog.model.vo.VideoMetadataVo;
     import com.apdevblog.ui.video.controls.BtnFullscreen;
     import com.apdevblog.ui.video.controls.BtnPlayPause;
     import com.apdevblog.ui.video.controls.BtnSound;
@@ -74,7 +73,7 @@ package com.apdevblog.ui.video
         private var _mute:BtnSound;
         private var _fullscreen:BtnFullscreen;
         private var _time:VideoTimeLabel;
-        private var _meta:VideoMetadataVo;
+        private var _meta:Object;
         private var _style:ApdevVideoPlayerDefaultStyle;
         private var _currentLoadingFraction:Number;
         private var _currentPlayingFraction:Number;
@@ -273,7 +272,7 @@ package com.apdevblog.ui.video
         /**
          * video's current metadata (visual representation).
          */
-        public function set meta(meta:VideoMetadataVo):void
+        public function set meta(meta:Object):void
         {
             _meta = meta;
 

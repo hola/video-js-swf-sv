@@ -21,7 +21,6 @@
  */
 package com.apdevblog.ui.video.controls 
 {
-    import com.apdevblog.model.vo.VideoMetadataVo;
     import com.apdevblog.ui.video.style.ApdevVideoPlayerDefaultStyle;
     import com.apdevblog.utils.Draw;
     import com.apdevblog.utils.StringUtils;
@@ -55,7 +54,7 @@ package com.apdevblog.ui.video.controls
         private var _bg:Shape;
         private var _txt:TextField;
         private var _state:String;
-        private var _meta:VideoMetadataVo;
+        private var _meta:Object;
         private var _currentTime:Number;
         private var _style:ApdevVideoPlayerDefaultStyle;
 
@@ -107,7 +106,7 @@ package com.apdevblog.ui.video.controls
          * 
          * @param meta		video's metadata
          */
-        public function updateMeta(meta:VideoMetadataVo):void
+        public function updateMeta(meta:Object):void
         {
             _meta = meta;
         }

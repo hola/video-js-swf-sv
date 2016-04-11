@@ -23,7 +23,6 @@ package com.apdevblog.ui.video.controls
 {
     import com.apdevblog.ui.video.style.ApdevVideoPlayerDefaultStyle;
     import com.apdevblog.events.video.VideoControlsEvent;
-    import com.apdevblog.model.vo.VideoMetadataVo;
     import com.apdevblog.utils.Draw;
 
     import flash.display.Shape;
@@ -101,7 +100,7 @@ package com.apdevblog.ui.video.controls
          * 
          * @param meta		video's metadata
          */
-        public function updateMeta(meta:VideoMetadataVo):void
+        public function updateMeta(meta:Object):void
         {
             _duration = meta.duration;
         }
