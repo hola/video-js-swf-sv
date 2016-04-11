@@ -134,6 +134,7 @@ package com.apdevblog.ui.video.controls
             _barLoading = new Sprite();
             _barLoading.mouseEnabled = false;
             _barLoading.addChild(Draw.rect(_barBg.width, 5, _style.barLoading, _style.barLoadingAlpha));
+            addChild(_barLoading);
 
             _barPlaying = new Sprite();
             _barPlaying.mouseEnabled = false;
@@ -194,7 +195,7 @@ package com.apdevblog.ui.video.controls
         }
 
         /**
-         * event handler - called when user clicks loading bar.
+         * event handler - called when user clicks bar.
          */
         private function onMouseDown(event:MouseEvent):void
         {
@@ -205,7 +206,7 @@ package com.apdevblog.ui.video.controls
         }
 
         /**
-         * event handler - called when user drags/scrubs over loadingbar.
+         * event handler - called when user drags/scrubs over bar.
          */
         private function onMouseMove(event:MouseEvent):void
         {
@@ -213,7 +214,7 @@ package com.apdevblog.ui.video.controls
         }
 
         /**
-         * event handler - called when user stops dragging/scrubbing over loadingbar.
+         * event handler - called when user stops dragging/scrubbing over bar.
          */
         private function onMouseUp(event:MouseEvent):void
         {
