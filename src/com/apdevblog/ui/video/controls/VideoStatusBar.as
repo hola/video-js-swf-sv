@@ -66,12 +66,11 @@ package com.apdevblog.ui.video.controls
      */
     public class VideoStatusBar extends Sprite 
     {
-        private var _barBg:Shape;
+        private var _barBg:Sprite;
         private var _barLoading:Sprite;
         private var _barPlaying:Sprite;
         private var _duration:Number = 0;
         private var _knob:Sprite;
-        private var _barLoadingMask:Shape;
         private var _componentWidth:int;
         private var _style:ApdevVideoPlayerDefaultStyle;
 
@@ -92,7 +91,7 @@ package com.apdevblog.ui.video.controls
          */
         public function updateLoading(fraction:Number):void
         {
-            _barLoadingMask.scaleX = fraction <= 1 ? fraction : 1;
+            _barLoading.scaleX = fraction <= 1 ? fraction : 1;
         }
 
         /**
@@ -123,14 +122,8 @@ package com.apdevblog.ui.video.controls
         {
             if(_barLoading != null)
             {
-                _barLoading.removeEventListener(MouseEvent.MOUSE_DOWN, onClickLoadingBar);
                 removeChild(_barLoading);
                 _barLoading = null;
-            }
-            if(_barLoadingMask != null)
-            {
-                removeChild(_barLoadingMask);
-                _barLoadingMask = null;
             }
             if(_barPlaying != null)
             {
@@ -139,22 +132,15 @@ package com.apdevblog.ui.video.controls
             }
 
             _barLoading = new Sprite();
-            _barLoading.buttonMode = true;
+            _barLoading.mouseEnabled = false;
             _barLoading.addChild(Draw.rect(_barBg.width, 5, _style.barLoading, _style.barLoadingAlpha));
-            _barLoading.addEventListener(MouseEvent.MOUSE_DOWN, onClickLoadingBar, false, 0, true);
-            addChild(_barLoading);
-
-            _barLoadingMask = Draw.rect(_barBg.width, 5, 0xFF0000, 1);
-            addChild(_barLoadingMask);
-
-            _barLoading.mask = _barLoadingMask;
 
             _barPlaying = new Sprite();
             _barPlaying.mouseEnabled = false;
             _barPlaying.addChild(Draw.rect(_barBg.width, 5, _style.barPlaying, 1));
             addChild(_barPlaying);
 
-            _barLoadingMask.scaleX = 0;
+            _barLoading.scaleX = 0;
             _barPlaying.scaleX = 0;
         }
 
@@ -163,7 +149,10 @@ package com.apdevblog.ui.video.controls
          */
         private function _draw():void
         {			
-            _barBg = Draw.rect(_componentWidth, 5, _style.barBg, _style.barBgAlpha);
+            _barBg = new Sprite();
+            _barBg.addChild(Draw.rect(_componentWidth, 5, _style.barBg, _style.barBgAlpha));
+            _barBg.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+            _barBg.buttonMode = true;
             addChild(_barBg);
 
             _createDynamicBars();
@@ -191,7 +180,7 @@ package com.apdevblog.ui.video.controls
          */
         private function _seek(scrubbing:Boolean):void
         {
-            var position:Number = _barLoading.mouseX * _barLoading.scaleX / _barLoading.width;			
+            var position:Number = _barBg.mouseX / _barBg.width;			
             var evt:VideoControlsEvent;
             if(scrubbing)
             {
@@ -207,7 +196,7 @@ package com.apdevblog.ui.video.controls
         /**
          * event handler - called when user clicks loading bar.
          */
-        private function onClickLoadingBar(event:MouseEvent):void
+        private function onMouseDown(event:MouseEvent):void
         {
             _seek(true);
 
