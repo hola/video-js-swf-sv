@@ -118,8 +118,6 @@ package com.videojs{
             _model.addEventListener(ExternalEventName.ON_START, onExternalEvent);
             _model.addEventListener(ExternalEventName.ON_PAUSE, onExternalEvent);
             _model.addEventListener(ExternalEventName.ON_RESUME, onExternalEvent);
-            _model.addEventListener(ExternalEventName.ON_SEEK_START, onExternalEvent);
-            _model.addEventListener(ExternalEventName.ON_SEEK_COMPLETE, onExternalEvent);
             _model.addEventListener(ExternalEventName.ON_PLAYBACK_COMPLETE, onExternalEvent);
             _model.addEventListener(ExternalEventName.ON_VOLUME_CHANGE, onExternalEvent);
             _model.addEventListener(VideoJSEvent.FULL_SCREEN_CHANGE, updateDisplayState);
@@ -152,8 +150,6 @@ package com.videojs{
             _model.removeEventListener(ExternalEventName.ON_START, onExternalEvent);
             _model.removeEventListener(ExternalEventName.ON_PAUSE, onExternalEvent);
             _model.removeEventListener(ExternalEventName.ON_RESUME, onExternalEvent);
-            _model.removeEventListener(ExternalEventName.ON_SEEK_START, onExternalEvent);
-            _model.removeEventListener(ExternalEventName.ON_SEEK_COMPLETE, onExternalEvent);
             _model.removeEventListener(ExternalEventName.ON_PLAYBACK_COMPLETE, onExternalEvent);
             _model.removeEventListener(ExternalEventName.ON_VOLUME_CHANGE, onExternalEvent);
             _model.removeEventListener(VideoJSEvent.FULL_SCREEN_CHANGE, updateDisplayState);
