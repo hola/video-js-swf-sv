@@ -346,14 +346,14 @@ package com.videojs{
             }
             else
             {
-                if (!_scrubbing && scrubbing && (_wasPlaying = !_model.paused))
-                    _model.pause(); // started scrubbing and is playing
                 var d:Number = _model.duration, to:Number = e.data * d;
                 // dont end while scrubbing
                 to = Math.max(0, Math.min(to, d-0.1));
                 _model.broadcastEventExternally(ExternalEventName.ON_SEEK_START);
                 _model.seekBySeconds(to);
                 _videoControls.updatePlaying(to/d);
+                if (!_scrubbing && scrubbing && (_wasPlaying = !_model.paused))
+                    _model.pause(); // started scrubbing and is playing
             }
             _scrubbing = scrubbing;
         }
