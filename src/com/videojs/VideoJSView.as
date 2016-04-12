@@ -351,6 +351,7 @@ package com.videojs{
                 var d:Number = _model.duration, to:Number = e.data * d;
                 // dont end while scrubbing
                 to = Math.max(0, Math.min(to, d-0.1));
+                _model.broadcastEventExternally(ExternalEventName.ON_SEEK_START);
                 _model.seekBySeconds(to);
                 _videoControls.updatePlaying(to/d);
             }
