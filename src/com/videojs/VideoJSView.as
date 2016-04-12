@@ -337,6 +337,11 @@ package com.videojs{
                 _videoControls.visible = show;
         }
 
+        private function seekBySeconds(sec:Number):void{
+            _model.seekBySeconds(sec);
+            _model.broadcastEventExternally(ExternalEventName.ON_SEEK_START);
+        }
+
         private function onSeek(e:VideoControlsEvent):void{
             var scrubbing:Boolean = e.type==VideoControlsEvent.SCRUB;
             if (_scrubbing && !scrubbing) // end scrubbing
@@ -349,9 +354,8 @@ package com.videojs{
                 var d:Number = _model.duration, to:Number = e.data * d;
                 // dont end while scrubbing
                 to = Math.max(0, Math.min(to, d-0.1));
-                _model.seekBySeconds(to);
                 _videoControls.updatePlaying(to/d);
-                _model.broadcastEventExternally(ExternalEventName.ON_SEEK_START);
+                seekBySeconds(to);
                 if (!_scrubbing && scrubbing && (_wasPlaying = !_model.paused))
                     _model.pause(); // started scrubbing and is playing
             }
@@ -361,7 +365,7 @@ package com.videojs{
         private function onTogglePlay(e:VideoControlsEvent):void{
             if (_model.hasEnded)
             {
-                _model.seekBySeconds(0);
+                seekBySeconds(0);
                 _model.play();
                 return;
             }
