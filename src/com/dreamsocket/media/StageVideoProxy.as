@@ -200,6 +200,8 @@ package com.dreamsocket.media
                 this.teardownStream();
                 this.setupStageVideo();
             }
+            else
+                layoutView();
         }
 
 
