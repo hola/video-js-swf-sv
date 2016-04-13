@@ -123,8 +123,11 @@ package{
                 _app.model.autoplay = true;
             }
 
-            if (loaderInfo.parameters.controls == "true")
+            if (loaderInfo.parameters.accelerated == "true" &&
+                loaderInfo.parameters.controls == "true")
+            {
                 _app.model.controls = true;
+            }
 
             if(loaderInfo.parameters.preload != undefined && loaderInfo.parameters.preload != ""){
                 _app.model.preload = String(loaderInfo.parameters.preload);
@@ -370,7 +373,8 @@ package{
                     _app.model.broadcastErrorEventExternally(ExternalErrorEventName.PROPERTY_NOT_FOUND, pPropertyName);
                     break;
                 case "controls":
-                    _app.model.controls = Boolean(pValue);
+                    _app.model.controls = Boolean(pValue) &&
+                        loaderInfo.parameters.accelerated == "true";
                     break;
             }
         }
