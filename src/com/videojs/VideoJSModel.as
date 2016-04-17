@@ -38,6 +38,7 @@ package com.videojs{
         private var _volume:Number = 1;
         private var _autoplay:Boolean = false;
         private var _controls:Boolean = false;
+        private var _accelerated:Boolean = false;
         private var _preload:String = "auto";
         private var _loop:Boolean = false;
         private var _src:String = "";
@@ -193,6 +194,13 @@ package com.videojs{
         }
         public function set autoplay(pValue:Boolean):void {
             _autoplay = pValue;
+        }
+
+        public function get accelerated():Boolean{
+            return _accelerated;
+        }
+        public function set accelerated(pValue:Boolean):void {
+            _accelerated = pValue;
         }
 
         public function get controls():Boolean{

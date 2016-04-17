@@ -123,10 +123,11 @@ package{
                 _app.model.autoplay = true;
             }
 
-            if (loaderInfo.parameters.accelerated == "true" &&
-                loaderInfo.parameters.controls == "true")
+            if (loaderInfo.parameters.accelerated == "true")
             {
-                _app.model.controls = true;
+                _app.model.accelerated = true;
+                if (loaderInfo.parameters.controls == "true")
+                    _app.model.controls = true;
             }
 
             if(loaderInfo.parameters.preload != undefined && loaderInfo.parameters.preload != ""){
@@ -308,7 +309,9 @@ package{
                     return _app.model.rtmpStream;
                     break;
                 case "controls":
-                    return _app.model.controls;
+                    // the way this is used in video.js means does the tech
+                    // support native controls not whether it's enabled
+                    return _app.model.accelerated;
                     break;
             }
             return null;
@@ -373,8 +376,7 @@ package{
                     _app.model.broadcastErrorEventExternally(ExternalErrorEventName.PROPERTY_NOT_FOUND, pPropertyName);
                     break;
                 case "controls":
-                    _app.model.controls = Boolean(pValue) &&
-                        loaderInfo.parameters.accelerated == "true";
+                    _app.model.controls = Boolean(pValue);
                     break;
             }
         }
