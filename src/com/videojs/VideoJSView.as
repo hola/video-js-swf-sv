@@ -8,6 +8,7 @@ package com.videojs{
     import com.apdevblog.ui.video.ApdevVideoControls;
     import com.apdevblog.ui.video.style.ApdevVideoPlayerDefaultStyle;
     import com.apdevblog.ui.video.ApdevVideoState;
+    import com.apdevblog.ui.video.controls.ImageOverlay;
     import com.apdevblog.events.video.VideoControlsEvent;
 
     import flash.display.Bitmap;
@@ -28,7 +29,6 @@ package com.videojs{
     public class VideoJSView extends Sprite{
 
         private var _uiVideo:Video;
-        private var _uiPosterImage:Loader;
         private var _uiBackground:Sprite;
         private var _videoControls:ApdevVideoControls;
         private var _model:VideoJSModel;
@@ -41,8 +41,8 @@ package com.videojs{
         private var _playerIdle:Boolean = true;
         private var _userActivity:Boolean = true;
         private var _userActive:Boolean = true;
-        private var _posterLoading:Boolean = false;
-        private var _posterLoaded:Boolean = false;
+        private var _image:ImageOverlay;
+        private var _style:ApdevVideoPlayerDefaultStyle;
 
         public function VideoJSView(){
 
@@ -71,12 +71,10 @@ package com.videojs{
             _uiBackground.alpha = _model.backgroundAlpha;
             addChild(_uiBackground);
 
-            var posterContainer:Sprite = new Sprite();
-            _uiPosterImage = new Loader();
-            _uiPosterImage.contentLoaderInfo.addEventListener(Event.COMPLETE, onPosterLoadComplete);
+            _style = new ApdevVideoPlayerDefaultStyle();
+            _image = new ImageOverlay(_model.stageRect.width, _model.stageRect.height, _style);
             showPoster(false);
-            posterContainer.addChild(_uiPosterImage);
-            addChild(posterContainer);
+            addChild(_image);
 
             _uiVideo = new StageVideoProxy();
             _uiVideo.width = _model.stageRect.width;
@@ -92,7 +90,7 @@ package com.videojs{
             if (active==_userActive)
                 return;
             _userActive = active;
-            if (!_videoControls)
+            if (!_videoControls || _playerIdle)
                 return;
             if (active)
                 showControls(true);
@@ -128,7 +126,7 @@ package com.videojs{
             addEventListener(VideoControlsEvent.ENTER_FULLSCREEN, onChangeDisplaystate, false, 0, true);
             _scrubbing = false;
             _wasPlaying = false;
-            _videoControls = new ApdevVideoControls(_uiVideo.width, new ApdevVideoPlayerDefaultStyle());
+            _videoControls = new ApdevVideoControls(_uiVideo.width, _style);
             _videoControls.y = height-_videoControls.height; 
             _videoControls.state = _model.paused ?
                 ApdevVideoState.VIDEO_STATE_PAUSED :
@@ -138,9 +136,12 @@ package com.videojs{
             updateLoading(null);
             updatePosition(null);
             updateDisplayState(null);
-            showControls(true);
+            showControls(false);
             addChild(_videoControls);
-            loadPoster();
+            if (_playerIdle)
+                showPoster(true);
+            else
+                showControls(true);
         }
 
         private function disableControls():void{
@@ -211,29 +212,7 @@ package com.videojs{
         }
 
         private function sizePoster():void{
-            // wrap this stuff in a try block to avoid freezing the call stack on an image
-            // asset that loaded successfully, but doesn't have an associated crossdomain
-            // policy : /
-            try {
-                if (!_posterLoaded)
-                    return;
-                var __targetWidth:int, __targetHeight:int;
-                var __availableWidth:int = _model.stageRect.width;
-                var __availableHeight:int = _model.stageRect.height;
-                var __nativeWidth:int = _uiPosterImage.contentLoaderInfo.width;
-                var __nativeHeight:int = _uiPosterImage.contentLoaderInfo.height;
-                // first, size the whole thing down based on the available width
-                __targetWidth = __availableWidth;
-                __targetHeight = __targetWidth * (__nativeHeight / __nativeWidth);
-                if (__targetHeight > __availableHeight){
-                    __targetWidth = __targetWidth * (__availableHeight / __targetHeight);
-                    __targetHeight = __availableHeight;
-                }
-                _uiPosterImage.width = __targetWidth;
-                _uiPosterImage.height = __targetHeight;
-                _uiPosterImage.x = Math.round((_model.stageRect.width - _uiPosterImage.width) / 2);
-                _uiPosterImage.y = Math.round((_model.stageRect.height - _uiPosterImage.height) / 2);
-            } catch(e:Error){}
+            _image.resize(_model.stageRect.width, _model.stageRect.height);
         }
 
         private function onBackgroundColorSet(e:VideoPlaybackEvent):void{
@@ -250,35 +229,14 @@ package com.videojs{
         }
 
         private function onPosterSet(e:VideoJSEvent):void{
-            _model.poster ? loadPoster() : showPoster(false);
-        }
-
-        private function loadPoster():void{
-            if (!_model.poster || !_model.controls || _posterLoading)
-                return;
-            var __request:URLRequest = new URLRequest(_model.poster);
-            var __context:LoaderContext = new LoaderContext();
-            //__context.checkPolicyFile = true;
-            _posterLoading = true;
-            _posterLoaded = false;
-            try { _uiPosterImage.load(__request, __context); } catch(e:Error){}
-        }
-
-        private function onPosterLoadComplete(e:Event):void{
-            // turning smoothing on for assets that haven't cleared the security sandbox / crossdomain hurdle		
-            // will result in the call stack freezing, so we need to wrap access to Loader.content		
-            _posterLoading = false;
-            _posterLoaded = true;
-            try {
-                (_uiPosterImage.content as Bitmap).smoothing = true;
-            } catch(e:Error){}
-            sizePoster();
-            if (_playerIdle && _model.poster && _model.controls)
+            if (_playerIdle && _model.controls && _model.poster)
                 showPoster(true);
         }
 
         private function showPoster(show:Boolean):void{
-            _uiPosterImage.visible = show;
+            if (show)
+                _image.load(_model.poster);
+            _image.visible = show;
         }
 
         private function onMetaData(e:VideoPlaybackEvent):void{
@@ -343,6 +301,8 @@ package com.videojs{
         }
 
         private function onSeek(e:VideoControlsEvent):void{
+            if (!_model.duration)
+                return;
             var scrubbing:Boolean = e.type==VideoControlsEvent.SCRUB;
             if (_scrubbing && !scrubbing) // end scrubbing
             {

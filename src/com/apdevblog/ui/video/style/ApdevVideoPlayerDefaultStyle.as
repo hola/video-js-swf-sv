@@ -158,7 +158,27 @@ package com.apdevblog.ui.video.style
         /**
          * alpha of the big play icon
          */
-        public var playIconAlpha:Number = 1.0;
+        public var playIconAlpha:Number = 0.8;
+
+        /**
+         * color of the big play icon background (only shown when using jpg at the beginning)
+         */
+        public var playIconBg:uint = 0x2d2d2d;
+
+        /**
+         * alpha of the big play icon background
+         */
+        public var playIconBgAlpha:Number = 0.6;
+
+        /**
+         * btn's icon glow color
+         */
+        public var playIconRollOverGlow:uint = 0x2b333f;
+
+        /**
+         * btn's icon glow alpha
+         */
+        public var playIconRollOverGlowAlpha:Number = 0.4;
 
         // paddings /////////////////////////////
 
