@@ -587,7 +587,7 @@ package com.videojs.providers{
 
                 case "NetStream.Buffer.Empty":
                     // should not fire if ended/paused. issue #38
-                    if(!_playbackStarted){ return; }
+                    if(!_playbackStarted){ break; }
 
                     // reaching the end of the buffer after endOfStream has been called means we've
                     // hit the end of the video

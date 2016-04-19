@@ -10,6 +10,7 @@ package com.videojs{
     import com.apdevblog.ui.video.ApdevVideoState;
     import com.apdevblog.ui.video.controls.ImageOverlay;
     import com.apdevblog.events.video.VideoControlsEvent;
+    import flex.util.ui.throbber.SimpleThrobber;
 
     import flash.display.Bitmap;
     import flash.display.Loader;
@@ -36,13 +37,16 @@ package com.videojs{
         private var _loadTimer:Timer;
         private var _activityTimer:Timer;
         private var _inactivityTimer:Timer;
+        private var _throbberTimer:Timer;
         private var _scrubbing:Boolean;
         private var _wasPlaying:Boolean;
+        private var _buffering:Boolean = false;
         private var _playerIdle:Boolean = true;
         private var _userActivity:Boolean = true;
         private var _userActive:Boolean = true;
         private var _image:ImageOverlay;
         private var _style:ApdevVideoPlayerDefaultStyle;
+        private var _throbber:SimpleThrobber;
 
         public function VideoJSView(){
 
@@ -55,6 +59,7 @@ package com.videojs{
             _model.addEventListener(VideoPlaybackEvent.ON_VIDEO_DIMENSION_UPDATE, onDimensionUpdate);
             _model.addEventListener(VideoPlaybackEvent.ON_STREAM_START, onPlayerIdleChange);
             _model.addEventListener(VideoPlaybackEvent.ON_STREAM_CLOSE, onPlayerIdleChange);
+            _model.addEventListener(VideoPlaybackEvent.ON_NETSTREAM_STATUS, onNetStreamStatus);
             _positionTimer = new Timer(250);
             _positionTimer.addEventListener(TimerEvent.TIMER, updatePosition, false, 0, true);
             _loadTimer = new Timer(500);
@@ -63,6 +68,8 @@ package com.videojs{
             _activityTimer.addEventListener(TimerEvent.TIMER, userActivityCheck, false, 0, true);
             _inactivityTimer = new Timer(2000);
             _inactivityTimer.addEventListener(TimerEvent.TIMER, onInactive, false, 0, true);
+            _throbberTimer = new Timer(500, 1);
+            _throbberTimer.addEventListener(TimerEvent.TIMER, showThrobber, false, 0, true);
 
             _uiBackground = new Sprite();
             _uiBackground.graphics.beginFill(_model.backgroundColor, 1);
@@ -81,6 +88,11 @@ package com.videojs{
             _uiVideo.height = _model.stageRect.height;
             _uiVideo.smoothing = true;
             addChild(_uiVideo);
+
+            _throbber = new SimpleThrobber();
+            _throbber.hideWhenStopped = true;
+            moveThrobber();
+            addChild(_throbber);
 
             _model.videoReference = _uiVideo;
             listenForUserActivity();
@@ -103,6 +115,22 @@ package com.videojs{
             showControls(true);
             if (!_playerIdle)
                 showPoster(false);
+        }
+
+        private function setBuffering(buffering:Boolean){
+            if (_buffering==buffering)
+                return;
+            if (_model.controls)
+                buffering ? _throbberTimer.start() : _throbber.stop();
+            _buffering = buffering;
+        }
+
+        private function onNetStreamStatus(e:VideoPlaybackEvent):void{
+            switch (e.data.info.code){
+            case "NetStream.Buffer.Full": setBuffering(false); break;
+            case "NetStream.Buffer.Empty":
+            case "NetStream.SeekStart.Notify": setBuffering(true); break;
+            }
         }
 
         private function toggleControls(e:VideoJSEvent):void{
@@ -215,7 +243,18 @@ package com.videojs{
             _image.resize(_model.stageRect.width, _model.stageRect.height);
         }
 
-        private function onBackgroundColorSet(e:VideoPlaybackEvent):void{
+        private function showThrobber(e:TimerEvent):void{
+            if (_buffering)
+                _throbber.start();
+            _throbberTimer.reset();
+        }
+
+        private function moveThrobber():void{
+            _throbber.x = Math.round((_model.stageRect.width - _throbber.w) / 2);
+            _throbber.y = Math.round((_model.stageRect.height - _throbber.h) / 2);
+        }
+
+        private function onBackgroundColorSet(e:VideoJSEvent):void{
             _uiBackground.graphics.clear();
             _uiBackground.graphics.beginFill(_model.backgroundColor, 1);
             _uiBackground.graphics.drawRect(0, 0, _model.stageRect.width, _model.stageRect.height);
@@ -226,6 +265,7 @@ package com.videojs{
             onBackgroundColorSet(null);
             sizeVideoObject();
             sizePoster();
+            moveThrobber();
         }
 
         private function onPosterSet(e:VideoJSEvent):void{
