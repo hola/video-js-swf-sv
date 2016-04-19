@@ -51,7 +51,7 @@ package com.videojs{
         public function VideoJSView(){
 
             _model = VideoJSModel.getInstance();
-            _model.addEventListener(VideoJSEvent.BACKGROUND_COLOR_SET, onBackgroundColorSet);
+            _model.addEventListener(VideoJSEvent.BACKGROUND_COLOR_SET, drawBg);
             _model.addEventListener(VideoJSEvent.STAGE_RESIZE, onStageResize);
             _model.addEventListener(VideoJSEvent.CONTROLS_SET, toggleControls);
             _model.addEventListener(VideoJSEvent.POSTER_SET, onPosterSet);
@@ -72,9 +72,7 @@ package com.videojs{
             _throbberTimer.addEventListener(TimerEvent.TIMER, showThrobber, false, 0, true);
 
             _uiBackground = new Sprite();
-            _uiBackground.graphics.beginFill(_model.backgroundColor, 1);
-            _uiBackground.graphics.drawRect(0, 0, _model.stageRect.width, _model.stageRect.height);
-            _uiBackground.graphics.endFill();
+            drawBg(null);
             _uiBackground.alpha = _model.backgroundAlpha;
             addChild(_uiBackground);
 
@@ -254,7 +252,7 @@ package com.videojs{
             _throbber.y = Math.round((_model.stageRect.height - _throbber.h) / 2);
         }
 
-        private function onBackgroundColorSet(e:VideoJSEvent):void{
+        private function drawBg(e:VideoJSEvent):void{
             _uiBackground.graphics.clear();
             _uiBackground.graphics.beginFill(_model.backgroundColor, 1);
             _uiBackground.graphics.drawRect(0, 0, _model.stageRect.width, _model.stageRect.height);
@@ -262,7 +260,7 @@ package com.videojs{
         }
 
         private function onStageResize(e:VideoJSEvent):void{
-            onBackgroundColorSet(null);
+            drawBg(null);
             sizeVideoObject();
             sizePoster();
             moveThrobber();
