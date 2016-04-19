@@ -1,10 +1,10 @@
-package com.apdevblog.ui.video.style 
+package com.apdevblog.ui.video.style
 {
     import com.apdevblog.utils.StringUtils;
 
     /**
      * Default style-sheet for the VideoPlayer.
-     * 
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      *
@@ -13,7 +13,7 @@ package com.apdevblog.ui.video.style
      * @copyright  2009 beta_interactive
      * @version    SVN: $Id$
      */
-    public class ApdevVideoPlayerDefaultStyle 
+    public class ApdevVideoPlayerDefaultStyle
     {
         // player ///////////////////////////////
 
@@ -134,7 +134,7 @@ package com.apdevblog.ui.video.style
         public var barPlaying:uint = 0xffffff;
 
         /**
-         * color of the knob on the time-bar 
+         * color of the knob on the time-bar
          */
         public var barKnob:uint = 0xffffff;
 
@@ -183,7 +183,7 @@ package com.apdevblog.ui.video.style
         // paddings /////////////////////////////
 
         /**
-         * videocontrols padding left side (in pixel) 
+         * videocontrols padding left side (in pixel)
          */
         public var controlsPaddingLeft:uint = 0;
 
@@ -202,7 +202,7 @@ package com.apdevblog.ui.video.style
 
         /**
          * check passed flashvars for style information
-         * 
+         *
          * @param flashvars		object containing flashvars
          */
         public function feedFlashvars(flashvars:Object):void

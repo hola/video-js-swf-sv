@@ -19,29 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.apdevblog.utils 
-{	
+package com.apdevblog.utils
+{
     import flash.display.BitmapData;
     import flash.display.GradientType;
     import flash.display.Graphics;
     import flash.display.InterpolationMethod;
     import flash.display.Shape;
     import flash.display.SpreadMethod;
-    import flash.geom.Matrix;	
+    import flash.geom.Matrix;
 
     /**
      * Class with little helpers for drawing different Shapes.
-     * 
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      * @keyword drawing api, draw, shape
-     * 
+     *
      * @package    com.apdevblog.utils
      * @author     Philipp Kyeck / phil[at]apdevblog.com
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: Draw.as 7 2009-10-13 16:46:31Z p.kyeck $
      */
-    public class Draw 
+    public class Draw
     {
         public static var VERTICAL:int = 1;
         public static var HORIZONTAL:int = 2;
@@ -51,16 +51,16 @@ package com.apdevblog.utils
         /**
          * draws a circle in a newly created Shape and fills it w/ the specified
          * BitmapData and alpha value.
-         * 
-         * @param offsetX	x position of the circle's center 
+         *
+         * @param offsetX	x position of the circle's center
          * @param offsetY	y position of the circle's center
          * @param r			circle's radius
          * @param bmp		BitmapData the circle will be filled w/
          * @param alpha		alpha value of the created Shape @default 1
-         * 
+         *
          * @return circular shape
          */
-        public static function bitmapCircle(offsetX:Number, offsetY:Number, r:Number, bmp:BitmapData, alpha:Number = 1):Shape 
+        public static function bitmapCircle(offsetX:Number, offsetY:Number, r:Number, bmp:BitmapData, alpha:Number = 1):Shape
         {
             var mc:Shape = new Shape();
 
@@ -84,17 +84,17 @@ package com.apdevblog.utils
         }
 
         /**
-         * draws a rectangle in a newly created Shape and 
+         * draws a rectangle in a newly created Shape and
          * fills it with submitted Bitmap.
-         * 
+         *
          * @param w       width of the new rectangle
          * @param h       height of the new rectangle
          * @param bmp     BitmapData to fill the rect
          * @param alpha   alpha of the created Shape
-         * 
+         *
          * @return rectangle shape
          */
-        public static function bitmapRect(w:int, h:int, bmp:BitmapData, alpha:Number):Shape 
+        public static function bitmapRect(w:int, h:int, bmp:BitmapData, alpha:Number):Shape
         {
             var mc:Shape = new Shape();
             mc.graphics.beginBitmapFill(bmp);
@@ -105,18 +105,18 @@ package com.apdevblog.utils
         }
 
         /**
-         * draws a rectangle with rounded corners in a newly created Shape and 
+         * draws a rectangle with rounded corners in a newly created Shape and
          * fills it with submitted Bitmap.
-         * 
+         *
          * @param w       width of the new rectangle
          * @param h       height of the new rectangle
          * @param radius  corner radius of the new rectangle
          * @param bmp     BitmapData to fill the rect
          * @param alpha   alpha of the created Shape
-         * 
+         *
          * @return rectangle shape with rounded edges
          */
-        public static function bitmapRoundedRect(w:int, h:int, radius:int, bmp:BitmapData, alpha:Number):Shape 
+        public static function bitmapRoundedRect(w:int, h:int, radius:int, bmp:BitmapData, alpha:Number):Shape
         {
             var mc:Shape = new Shape();
             var g:Graphics = mc.graphics;
@@ -142,13 +142,13 @@ package com.apdevblog.utils
 
         /**
          * draws a checkered rectangle in a newly created Shape.
-         * 
+         *
          * @param w				width of the rectangle
          * @param h				height of the rectangle
          * @param color32_1		color of the first field 0xAARRGGBB
          * @param color32_2		color of the second field 0xAARRGGBB
          * @param alpha   		alpha of the created Shape @default 1
-         * 
+         *
          * @return checkered rectangle
          */
         public static function checkeredRect(w:int, h:int, color32_1:uint, color32_2:uint, alpha:Number = 1):Shape
@@ -177,16 +177,16 @@ package com.apdevblog.utils
         /**
          * draws a circle in a newly created Shape and fills it w/ the specified
          * color and alpha value.
-         * 
-         * @param offsetX	x position of the circle's center 
+         *
+         * @param offsetX	x position of the circle's center
          * @param offsetY	y position of the circle's center
          * @param r			circle's radius
          * @param color		color the circle will be filled w/
          * @param alpha		alpha value of the created Shape @default 1
-         * 
+         *
          * @return circular shape
          */
-        public static function circle(offsetX:Number, offsetY:Number, r:Number, color:Number, alpha:Number = 1):Shape 
+        public static function circle(offsetX:Number, offsetY:Number, r:Number, color:Number, alpha:Number = 1):Shape
         {
             var mc:Shape = new Shape();
 
@@ -211,16 +211,16 @@ package com.apdevblog.utils
 
         /**
          * draws a cross (x) in a newly created Shape.
-         * 
+         *
          * @param w       	width of the new cross
          * @param h       	height of the new cross
          * @param color   	color of the new cross
          * @param alpha   	alpha of the created Shape @default 1
          * @param lineWidth	width of the line @default 2
-         * 
+         *
          * @return cross shape
          */
-        public static function cross(w:int, h:int, color:int, alpha:Number = 1, lineWidth:int = 2):Shape 
+        public static function cross(w:int, h:int, color:int, alpha:Number = 1, lineWidth:int = 2):Shape
         {
             var mc:Shape = new Shape();
             var g:Graphics = mc.graphics;
@@ -238,12 +238,12 @@ package com.apdevblog.utils
 
         /**
          * draws a donut in a newly created shape.
-         * 
+         *
          * @param r1         outer radius
          * @param r2         inner radius
          * @param deg        degrees (of a circle)
          */
-        public static function donut(r1:Number, r2:Number, deg:Number, color:int, alpha:Number):Shape 
+        public static function donut(r1:Number, r2:Number, deg:Number, color:int, alpha:Number):Shape
         {
             var mc:Shape = new Shape();
             var g:Graphics = mc.graphics;
@@ -254,34 +254,34 @@ package com.apdevblog.utils
             g.lineTo(r1, 0);
 
             // draw the 30-degree segments
-            var a:Number = Math.tan(1 * Math.PI * 180);  
+            var a:Number = Math.tan(1 * Math.PI * 180);
             var i:Number;
 
             var endx:Number;
             var endy:Number;
             var ax:Number;
-            var ay:Number;		   
+            var ay:Number;
 
-            for (i = 0;i < deg; i++) 
+            for (i = 0;i < deg; i++)
             {
                 endx = r1 * Math.cos((i + 1) * TO_RADIANS);
                 endy = r1 * Math.sin((i + 1) * TO_RADIANS);
                 ax = endx + r1 * a * Math.cos(((i + 1) - 90) * TO_RADIANS);
                 ay = endy + r1 * a * Math.sin(((i + 1) - 90) * TO_RADIANS);
-                g.curveTo(ax, ay, endx, endy);	
+                g.curveTo(ax, ay, endx, endy);
             }
 
             // cut out middle (draw another circle before endFill applied)
             g.moveTo(0, 0);
             g.lineTo(r2, 0);
 
-            for (i = 0;i < deg; i++) 
+            for (i = 0;i < deg; i++)
             {
                 endx = r2 * Math.cos((i + 1) * TO_RADIANS);
                 endy = r2 * Math.sin((i + 1) * TO_RADIANS);
                 ax = endx + r2 * a * Math.cos(((i + 1) - 90) * TO_RADIANS);
                 ay = endy + r2 * a * Math.sin(((i + 1) - 90) * TO_RADIANS);
-                g.curveTo(ax, ay, endx, endy);	
+                g.curveTo(ax, ay, endx, endy);
             }
 
             mc.alpha = alpha;
@@ -290,7 +290,7 @@ package com.apdevblog.utils
 
         /**
          * draws a dotted line in a newly created Shape.
-         * 
+         *
          * @param length		length of the line
          * @param layout		orientation of the line (horizontal / vertical)
          * @param color32_1		color of the dots 0xAARRGGBB
@@ -298,7 +298,7 @@ package com.apdevblog.utils
          * @param w_1			length of the dots
          * @param w_2			length of the spaces
          * @param alpha   		alpha of the created Shape @default 1
-         * 
+         *
          * @return dotted line
          */
         public static function dottedLine(length:int, layout:int, color32_1:uint, color32_2:uint, w_1:int = 1, w_2:int = 1, alpha:Number = 1):Shape
@@ -332,7 +332,7 @@ package com.apdevblog.utils
 
         /**
          * draws a rectangle w/ gradient in a newly created Shape.
-         * 
+         *
          * @param w			width of the rectangle
          * @param h			height of the rectangle
          * @param rotation	rotation of the gradient
@@ -340,7 +340,7 @@ package com.apdevblog.utils
          * @param color2	second color of the gradient
          * @param alpha1   	first alpha of the gradient @default 1
          * @param alpha2   	second alpha of the gradient @default 1
-         * 
+         *
          * @return rectangle filled w/ gradient
          */
         public static function gradientRect(w:Number, h:Number, rotation:Number, color1:Number, color2:Number, alpha1:Number = 1, alpha2:Number = 1):Shape
@@ -361,22 +361,22 @@ package com.apdevblog.utils
             g.beginGradientFill(fillType, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod);
             g.drawRect(0, 0, w, h);
 
-            return mc;					
+            return mc;
         }
 
         /**
          * draws a checkered rectangle in a newly created Shape.
-         * 
+         *
          * @param w			width of the rectangle
          * @param h			height of the rectangle
          * @param color		color of the rectangle
          * @param alpha   	alpha of the created Shape @default 1
          * @param x			x position of the created Shape @default 0
          * @param y		   	y position of the created Shape @default 0
-         * 
+         *
          * @return rectangle
          */
-        public static function rect(w:Number, h:Number, color:Number, alpha:Number = 1, x:Number = 0, y:Number = 0):Shape 
+        public static function rect(w:Number, h:Number, color:Number, alpha:Number = 1, x:Number = 0, y:Number = 0):Shape
         {
             var mc:Shape = new Shape();
             mc.graphics.beginFill(color, 1);
@@ -393,18 +393,18 @@ package com.apdevblog.utils
         }
 
         /**
-         * draws a rectangle with rounded corners in a newly created Shape and 
+         * draws a rectangle with rounded corners in a newly created Shape and
          * fills it with specified color.
-         * 
+         *
          * @param w       width of the new rectangle
          * @param h       height of the new rectangle
          * @param radius  corner radius of the new rectangle
          * @param color   color to fill the rect
          * @param alpha   alpha of the created Shape
-         * 
+         *
          * @return colored rectangle shape with rounded edges
          */
-        public static function roundedRect(x:Number, y:Number, w:Number, h:Number, radius:Number, color:Number, alpha:Number):Shape 
+        public static function roundedRect(x:Number, y:Number, w:Number, h:Number, radius:Number, color:Number, alpha:Number):Shape
         {
             var mc:Shape = new Shape();
             var g:Graphics = mc.graphics;
@@ -428,15 +428,15 @@ package com.apdevblog.utils
 
         /**
          * draws an outline in a newly created Shape.
-         * 
+         *
          * @param w       width of the new outline
          * @param h       height of the new outline
          * @param color   color of the new outline
          * @param alpha   alpha of the created Shape
-         * 
+         *
          * @return rounded rectangle shape
          */
-        public static function outline(w:int, h:int, color:int, alpha:Number):Shape 
+        public static function outline(w:int, h:int, color:int, alpha:Number):Shape
         {
             var mc:Shape = new Shape();
             var g:Graphics = mc.graphics;

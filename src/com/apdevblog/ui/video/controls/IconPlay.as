@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.apdevblog.ui.video.controls 
+package com.apdevblog.ui.video.controls
 {
     import com.apdevblog.ui.video.style.ApdevVideoPlayerDefaultStyle;
     import com.apdevblog.utils.Draw;
@@ -30,7 +30,7 @@ package com.apdevblog.ui.video.controls
 
     /**
      * Play icon (displayed on the preview image).
-     * 
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      *
@@ -38,10 +38,10 @@ package com.apdevblog.ui.video.controls
      * @author     Philipp Kyeck / phil[at]apdevblog.com
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: IconPlay.as 7 2009-10-13 16:46:31Z p.kyeck $
-     * 
+     *
      * @see com.apdevblog.ui.video.ApdevVideoPlayer ApdevVideoPlayer
      */
-    public class IconPlay extends Sprite 
+    public class IconPlay extends Sprite
     {
         /**
          * creates a play icon ("o" and draws a ">" in the middle).

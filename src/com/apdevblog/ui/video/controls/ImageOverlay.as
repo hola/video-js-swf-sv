@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.apdevblog.ui.video.controls 
+package com.apdevblog.ui.video.controls
 {
     import com.apdevblog.events.video.VideoControlsEvent;
     import com.apdevblog.ui.video.style.ApdevVideoPlayerDefaultStyle;
@@ -35,8 +35,8 @@ package com.apdevblog.ui.video.controls
 
     /**
      * Image overlay - can e.g. display a screenshot of the video.
-     * Only shown when video playback is set to autoplay = false. 
-     * 
+     * Only shown when video playback is set to autoplay = false.
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      *
@@ -45,7 +45,7 @@ package com.apdevblog.ui.video.controls
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id$
      */
-    public class ImageOverlay extends Sprite 
+    public class ImageOverlay extends Sprite
     {
         private var _imageLoader:Loader;
         private var _imageOverlayIcon:IconPlay;
@@ -58,7 +58,7 @@ package com.apdevblog.ui.video.controls
 
         /**
          * creates image overlay.
-         * 
+         *
          * @param w		width of the videoplayer
          * @param h		height of the videoplayer
          */
@@ -69,8 +69,8 @@ package com.apdevblog.ui.video.controls
 
         /**
          * loads image and displays it on stage.
-         * 
-         * @param url	url of image to be loaded 
+         *
+         * @param url	url of image to be loaded
          */
         public function load(url:String):void
         {

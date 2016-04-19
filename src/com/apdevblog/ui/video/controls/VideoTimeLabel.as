@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.apdevblog.ui.video.controls 
+package com.apdevblog.ui.video.controls
 {
     import com.apdevblog.ui.video.style.ApdevVideoPlayerDefaultStyle;
     import com.apdevblog.utils.Draw;
@@ -34,7 +34,7 @@ package com.apdevblog.ui.video.controls
 
     /**
      * Label displaying the video's current time (ASC or DESC).
-     * 
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      *
@@ -42,14 +42,14 @@ package com.apdevblog.ui.video.controls
      * @author     Philipp Kyeck / philipp[at]beta-interactive.de
      * @copyright  2009 beta_interactive
      * @version    SVN: $Id: VideoTimeLabel.as 8 2009-12-24 11:29:22Z p.kyeck $
-     * 
+     *
      * @see com.apdevblog.ui.video.ApdevVideoPlayer ApdevVideoPlayer
      * @see com.apdevblog.ui.video.ApdevVideoControls ApdevVideoControls
      */
-    public class VideoTimeLabel extends Sprite 
+    public class VideoTimeLabel extends Sprite
     {
-        public static const STATE_COUNT_UP:String = "stateCountUp"; 
-        public static const STATE_COUNT_DOWN:String = "stateCountDown"; 
+        public static const STATE_COUNT_UP:String = "stateCountUp";
+        public static const STATE_COUNT_DOWN:String = "stateCountDown";
         //
         private var _bg:Shape;
         private var _txt:TextField;
@@ -68,7 +68,7 @@ package com.apdevblog.ui.video.controls
 
         /**
          * updates the video's time played.
-         * 
+         *
          * @param time		time that the video already played
          */
         public function update(time:Number):void
@@ -78,7 +78,7 @@ package com.apdevblog.ui.video.controls
             if(_state == VideoTimeLabel.STATE_COUNT_DOWN)
             {
                 // cound down from total to 0
-                var total:Number = _meta != null ? _meta.duration : 0; 
+                var total:Number = _meta != null ? _meta.duration : 0;
                 time = total - time;
                 if(time < 0)
                 {
@@ -88,7 +88,7 @@ package com.apdevblog.ui.video.controls
             }
             else
             {
-                _txt.textColor = _style.timerUp;				
+                _txt.textColor = _style.timerUp;
             }
 
             var seconds:Number = time % 60;
@@ -103,7 +103,7 @@ package com.apdevblog.ui.video.controls
 
         /**
          * updates video's metadata.
-         * 
+         *
          * @param meta		video's metadata
          */
         public function updateMeta(meta:Object):void

@@ -50,10 +50,10 @@ package com.apdevblog.ui.video
 
     /**
      * VideoControls for ApdevVideoPlayer.
-     * 
-     * <p>Container with all controls (play/pause, volume, ...) for the 
+     *
+     * <p>Container with all controls (play/pause, volume, ...) for the
      * videoplayer.</p>
-     * 
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      *
@@ -61,11 +61,11 @@ package com.apdevblog.ui.video
      * @author     Philipp Kyeck / phil[at]apdevblog.com
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: ApdevVideoControls.as 8 2009-12-24 11:29:22Z p.kyeck $
-     * 
+     *
      * @see com.apdevblog.ui.video.ApdevVideoPlayer ApdevVideoPlayer
      */
-    public class ApdevVideoControls extends Sprite 
-    {		
+    public class ApdevVideoControls extends Sprite
+    {
         private var _controlsWidth:int;
         private var _bg:Shape;
         private var _play:BtnPlayPause;
@@ -83,7 +83,7 @@ package com.apdevblog.ui.video
 
         /**
          * creates a new container for the videoplayer's controls.
-         * 
+         *
          * @param width		width of the whole container
          */
         public function ApdevVideoControls(width:int, style:ApdevVideoPlayerDefaultStyle)
@@ -94,7 +94,7 @@ package com.apdevblog.ui.video
         /**
          * adjusts the controls when the current displaystate changes
          * (@see flash.display.StageDisplayState StageDisplayState).
-         * 
+         *
          * @param displayState	 stage's displaystate
          */
         public function updateDisplayState(displayState:String):void
@@ -105,8 +105,8 @@ package com.apdevblog.ui.video
 
         /**
          * updates the visual loading status.
-         * 
-         * @param fraction		percents of the video that are already loaded 
+         *
+         * @param fraction		percents of the video that are already loaded
          */
         public function updateLoading(fraction:Number):void
         {
@@ -116,7 +116,7 @@ package com.apdevblog.ui.video
 
         /**
          * adjusts the controls when the video's playing state changed.
-         * 
+         *
          * @param fraction		percents of the video that are already played
          */
         public function updatePlaying(fraction:Number):void
@@ -189,7 +189,7 @@ package com.apdevblog.ui.video
             _fullscreen.y = 3;
 
             _bar.x = _play.x + _play.width + 3;
-            _bar.y = 11; 
+            _bar.y = 11;
 
             addChild(_time);
             addChild(_bar);

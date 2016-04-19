@@ -41,11 +41,11 @@ package com.apdevblog.ui.video.controls
      * @author     Philipp Kyeck / phil[at]apdevblog.com
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: BtnPlayPause.as 7 2009-10-13 16:46:31Z p.kyeck $
-     * 
+     *
      * @see com.apdevblog.ui.video.ApdevVideoPlayer ApdevVideoPlayer
      * @see com.apdevblog.ui.video.ApdevVideoControls ApdevVideoControls
      */
-    public class BtnPlayPause extends Sprite 
+    public class BtnPlayPause extends Sprite
     {
         private var _play:Sprite;
         private var _pause:Sprite;
@@ -62,7 +62,7 @@ package com.apdevblog.ui.video.controls
 
         /**
          * updates video's playback state (visually).
-         * 
+         *
          * @param state		the new ApdevVideoState
          */
         public function updateState(state:String):void
@@ -150,13 +150,13 @@ package com.apdevblog.ui.video.controls
             filter.alpha = _style.btnRollOverGlowAlpha;
 
             _pause.filters = [filter];
-            _play.filters = [filter];			
+            _play.filters = [filter];
         }
 
         private function onMouseOut(event:MouseEvent):void
         {
             _pause.filters = [];
-            _play.filters = [];			
-        }		
+            _play.filters = [];
+        }
     }
 }

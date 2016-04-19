@@ -60,11 +60,11 @@ package com.apdevblog.ui.video.controls
      * @author     Philipp Kyeck / phil[at]apdevblog.com
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: VideoStatusBar.as 8 2009-12-24 11:29:22Z p.kyeck $
-     * 
+     *
      * @see com.apdevblog.ui.video.ApdevVideoPlayer ApdevVideoPlayer
      * @see com.apdevblog.ui.video.ApdevVideoControls ApdevVideoControls
      */
-    public class VideoStatusBar extends Sprite 
+    public class VideoStatusBar extends Sprite
     {
         private var _barBg:Sprite;
         private var _barLoading:Sprite;
@@ -76,7 +76,7 @@ package com.apdevblog.ui.video.controls
 
         /**
          * creates status bar.
-         * 
+         *
          * @param width		bar's initial width
          */
         public function VideoStatusBar(width:int, style:ApdevVideoPlayerDefaultStyle)
@@ -86,8 +86,8 @@ package com.apdevblog.ui.video.controls
 
         /**
          * updates the visual loading status.
-         * 
-         * @param fraction		percents of the video that are already loaded 
+         *
+         * @param fraction		percents of the video that are already loaded
          */
         public function updateLoading(fraction:Number):void
         {
@@ -96,7 +96,7 @@ package com.apdevblog.ui.video.controls
 
         /**
          * receives video's new meta information.
-         * 
+         *
          * @param meta		video's metadata
          */
         public function updateMeta(meta:Object):void
@@ -106,13 +106,13 @@ package com.apdevblog.ui.video.controls
 
         /**
          * adjusts the bar when the video's playing state changed.
-         * 
+         *
          * @param fraction		percents of the video that are already played
          */
         public function updatePlaying(fraction:Number):void
         {
             _barPlaying.scaleX = fraction <= 1 ? fraction : 1;
-            _knob.x = Math.round(_barPlaying.width); 
+            _knob.x = Math.round(_barPlaying.width);
         }
 
         /**
@@ -149,7 +149,7 @@ package com.apdevblog.ui.video.controls
          * draws bar's initial components.
          */
         private function _draw():void
-        {			
+        {
             _barBg = new Sprite();
             _barBg.addChild(Draw.rect(_componentWidth, 5, _style.barBg, _style.barBgAlpha));
             _barBg.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
@@ -160,9 +160,9 @@ package com.apdevblog.ui.video.controls
 
             _knob = new Sprite();
             _knob.mouseEnabled = false;
-            _knob.addChild(Draw.rect(5, 11, _style.barKnobOutline, _style.barKnobOutlineAlpha, -2, -3));	
-            _knob.addChild(Draw.rect(3, 9, _style.barKnob, 1, -1, -2));	
-            addChild(_knob);			
+            _knob.addChild(Draw.rect(5, 11, _style.barKnobOutline, _style.barKnobOutlineAlpha, -2, -3));
+            _knob.addChild(Draw.rect(3, 9, _style.barKnob, 1, -1, -2));
+            addChild(_knob);
         }
 
         /**
@@ -181,7 +181,7 @@ package com.apdevblog.ui.video.controls
          */
         private function _seek(scrubbing:Boolean):void
         {
-            var position:Number = _barBg.mouseX / _barBg.width;			
+            var position:Number = _barBg.mouseX / _barBg.width;
             var evt:VideoControlsEvent;
             if(scrubbing)
             {
@@ -210,7 +210,7 @@ package com.apdevblog.ui.video.controls
          */
         private function onMouseMove(event:MouseEvent):void
         {
-            _seek(true);			
+            _seek(true);
         }
 
         /**

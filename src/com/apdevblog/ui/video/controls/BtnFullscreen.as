@@ -41,11 +41,11 @@ package com.apdevblog.ui.video.controls
      * @author     Aron Woost / aron[at]apdevblog.com
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: BtnFullscreen.as 7 2009-10-13 16:46:31Z p.kyeck $
-     * 
+     *
      * @see com.apdevblog.ui.video.ApdevVideoPlayer ApdevVideoPlayer
      * @see com.apdevblog.ui.video.ApdevVideoControls ApdevVideoControls
      */
-    public class BtnFullscreen extends Sprite 
+    public class BtnFullscreen extends Sprite
     {
         private var _iconToFullscreen:Sprite;
         private var _iconToNormal:Sprite;
@@ -61,7 +61,7 @@ package com.apdevblog.ui.video.controls
 
         /**
          * updates stage's displaystate (visually).
-         * 
+         *
          * @param state		the new StageDisplayState
          */
         public function updateState(state:String):void
@@ -78,7 +78,7 @@ package com.apdevblog.ui.video.controls
                 _iconToNormal.visible = true;
                 break;
             }
-        }		
+        }
 
         /**
          * draws initial button components.
@@ -96,7 +96,7 @@ package com.apdevblog.ui.video.controls
 
             g.beginFill(_style.btnIcon, 1);
             g.drawRect(2, 2, 3, 1);
-            g.drawRect(2, 3, 1, 2);			
+            g.drawRect(2, 3, 1, 2);
             g.drawRect(20, 2, 3, 1);
             g.drawRect(22, 3, 1, 2);
             g.drawRect(2, 18, 1, 3);
@@ -109,7 +109,7 @@ package com.apdevblog.ui.video.controls
             g.drawRect(7, 16, 11, 1);
             g.endFill();
 
-            addChild(_iconToFullscreen);		
+            addChild(_iconToFullscreen);
 
             // icon 2 normal
             _iconToNormal = new Sprite();
@@ -137,7 +137,7 @@ package com.apdevblog.ui.video.controls
 
             g.endFill();
 
-            addChild(_iconToNormal);		
+            addChild(_iconToNormal);
         }
 
         /**
@@ -149,7 +149,7 @@ package com.apdevblog.ui.video.controls
             buttonMode = true;
             mouseChildren = false;
 
-            _draw();			
+            _draw();
 
             addEventListener(MouseEvent.CLICK, onMouseClick, false, 0, true);
             addEventListener(MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true);
@@ -160,7 +160,7 @@ package com.apdevblog.ui.video.controls
          * event handler - called when user clicks button.
          */
         private function onMouseClick(event:MouseEvent):void
-        {	
+        {
             _iconToFullscreen.filters = [];
             _iconToNormal.filters = [];
         }

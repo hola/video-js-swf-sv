@@ -25,7 +25,7 @@
  **/
 
 
-package com.dreamsocket.media 
+package com.dreamsocket.media
 {
     import flash.events.Event;
     import flash.events.StageVideoEvent;
@@ -115,9 +115,9 @@ package com.dreamsocket.media
         }
 
         protected function setupSpriteVideo():void
-        {		
+        {
             this.m_stageVideo = null;
-            super.attachNetStream(this.m_netStream);		
+            super.attachNetStream(this.m_netStream);
         }
 
 
@@ -152,7 +152,7 @@ package com.dreamsocket.media
 
 
         protected function teardownStream():void
-        {	
+        {
             try
             {
                 if(this.m_stageVideo)
@@ -168,7 +168,7 @@ package com.dreamsocket.media
 
             }
             catch(error:Error){}
-        }	
+        }
 
 
         protected function layoutView():void
@@ -187,7 +187,7 @@ package com.dreamsocket.media
 
 
         protected function onRemovedFromStage(p_event:Event):void
-        {	
+        {
             //this.stage.removeEventListener(StageVideoAvailabilityEvent.STAGE_VIDEO_AVAILABILITY, this.onStageVideoAvailabilityChanged);
             this.teardownStream();
         }

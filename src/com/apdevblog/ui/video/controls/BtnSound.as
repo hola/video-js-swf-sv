@@ -38,7 +38,7 @@ package com.apdevblog.ui.video.controls
 
     /**
      * Button controlling the video's sound.
-     * 
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      *
@@ -46,11 +46,11 @@ package com.apdevblog.ui.video.controls
      * @author     Aron Woost / aron[at]apdevblog.com
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: BtnSound.as 7 2009-10-13 16:46:31Z p.kyeck $
-     * 
+     *
      * @see com.apdevblog.ui.video.ApdevVideoPlayer ApdevVideoPlayer
      * @see com.apdevblog.ui.video.ApdevVideoControls ApdevVideoControls
      */
-    public class BtnSound extends Sprite 
+    public class BtnSound extends Sprite
     {
         private var _bars:Array;
         private var _style:ApdevVideoPlayerDefaultStyle;
@@ -65,20 +65,20 @@ package com.apdevblog.ui.video.controls
 
         /**
          * updates volume state (visually).
-         * 
+         *
          * @param vol	video's current volume
          */
         public function updateState(vol:Number):void
         {
             var num:int = Math.ceil(vol * 7);
-            for(var i:Number = 1;i < 9; i++) 
+            for(var i:Number = 1;i < 9; i++)
             {
                 var bar:Shape = _bars[i - 1] as Shape;
                 if(bar != null)
                 {
                     bar.alpha = (i - 1 > num) ? .25 : 1;
                 }
-            }			
+            }
         }
 
         /**
@@ -93,7 +93,7 @@ package com.apdevblog.ui.video.controls
 
             _bars = new Array();
 
-            for(var i:Number = 0;i < 8; i++) 
+            for(var i:Number = 0;i < 8; i++)
             {
                 var bar:Shape = Draw.rect(2, i + 1, _style.btnIcon, 1);
                 bar.x = 4 + (i * 3);

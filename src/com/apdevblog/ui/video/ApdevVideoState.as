@@ -19,12 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.apdevblog.ui.video 
+package com.apdevblog.ui.video
 {
 
     /**
      * State of the video that is played in the ApdevVideoPlayer.
-     * 
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      *
@@ -33,7 +33,7 @@ package com.apdevblog.ui.video
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: ApdevVideoState.as 2 2009-09-02 11:03:20Z p.kyeck $
      */
-    public class ApdevVideoState 
+    public class ApdevVideoState
     {
         // our own video states so that you don't have to bother w/ the fl-package
         public static const VIDEO_STATE_EMPTY:String = "videoStateEmpty";

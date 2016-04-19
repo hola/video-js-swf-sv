@@ -19,22 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.apdevblog.events.video 
+package com.apdevblog.events.video
 {
     import flash.events.Event;
 
     /**
      * VideoControl specific Event.
-     * 
+     *
      * @playerversion Flash 9
      * @langversion 3.0
      *
-     * @package    com.apdevblog.events.video 
+     * @package    com.apdevblog.events.video
      * @author     Philipp Kyeck / phil[at]apdevblog.com
      * @copyright  2009 apdevblog.com
      * @version    SVN: $Id: VideoControlsEvent.as 6 2009-09-27 12:31:47Z p.kyeck $
      */
-    public class VideoControlsEvent extends Event 
+    public class VideoControlsEvent extends Event
     {
         public static const SEEK:String = "seek";
         public static const SCRUB:String = "scrub";
@@ -54,7 +54,7 @@ package com.apdevblog.events.video
 
         /**
          * create new VideoControlsEvent.
-         * 
+         *
          * @param type			event type
          * @param bubbles		does event bubble
          * @param cancelable	can event be canceled
@@ -69,7 +69,7 @@ package com.apdevblog.events.video
         /**
          * @inheritDoc
          */
-        public override function clone():Event 
+        public override function clone():Event
         {
             return new VideoControlsEvent(type, bubbles, cancelable, data);
         }
@@ -77,8 +77,8 @@ package com.apdevblog.events.video
         /**
          * @inheritDoc
          */
-        public override function toString():String 
-        { 
+        public override function toString():String
+        {
             return formatToString("VideoControlsEvent", "type", "bubbles", "cancelable", "eventPhase", "data");
         }
 
