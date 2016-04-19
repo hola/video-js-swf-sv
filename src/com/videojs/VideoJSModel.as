@@ -593,7 +593,7 @@ package com.videojs{
             } else if (obj is Array) {
                 var __sanitizedArray:Array = new Array();
 
-                for each (var __item in obj){
+                for each (var __item:* in obj){
                     __sanitizedArray.push(cleanObject(__item));
                 }
 
@@ -601,7 +601,7 @@ package com.videojs{
             } else if (typeof(obj) == 'object') {
                 var __sanitizedObject:Object = new Object();
 
-                for (var __i in obj){
+                for (var __i:String in obj){
                     __sanitizedObject[__i] = cleanObject(obj[__i]);
                 }
 
