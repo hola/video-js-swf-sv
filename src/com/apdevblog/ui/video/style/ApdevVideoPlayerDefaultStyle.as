@@ -20,7 +20,7 @@ package com.apdevblog.ui.video.style
         /**
          * background gradient color top
          */
-        public var bgGradient1:uint = 0x2b333f;
+        public var bgGradient1:uint = 0x000000;
 
         /**
          * background gradient alpha top
