@@ -49,6 +49,7 @@ package com.apdevblog.ui.video.controls
     {
         private var _imageLoader:Loader;
         private var _imageOverlayIcon:IconPlay;
+        private var _bg:Shape;
         private var _videoPlayerWidth:Number;
         private var _videoPlayerHeight:Number;
         private var _style:ApdevVideoPlayerDefaultStyle;
@@ -92,6 +93,9 @@ package com.apdevblog.ui.video.controls
          */
         private function _draw():void
         {
+            _bg = Draw.rect(_videoPlayerWidth, _videoPlayerHeight, 0x000000, 1);
+            addChild(_bg);
+
             _imageLoader = new Loader();
             addChild(_imageLoader);
 
@@ -126,50 +130,26 @@ package com.apdevblog.ui.video.controls
 
         private function _update():void
         {
-            if(_imageOverlayIcon != null)
+            _bg.width = _videoPlayerWidth;
+            _bg.height = _videoPlayerHeight;
+            if (_imageOverlayIcon)
             {
                 _imageOverlayIcon.x = Math.round(_videoPlayerWidth*0.5);
                 _imageOverlayIcon.y = Math.round(_videoPlayerHeight*0.5);
             }
-
-            if(!_imageLoaded)
-            {
+            if (!_imageLoaded)
                 return;
+            var ratio:Number = _imageLoader.width/_imageLoader.height;
+            var w:int = _videoPlayerWidth;
+            var h:int = w / ratio;
+            if (h > _videoPlayerHeight){
+                h = _videoPlayerHeight;
+                w = h * ratio;
             }
-
-            var imageRatio:Number = _imageLoader.width / _imageLoader.height;
-            var w:Number = _videoPlayerWidth;
-            var h:Number = _videoPlayerHeight;
-            var playerRatio:Number = w / h;
-            var fraction:Number;
-
-            if(imageRatio > playerRatio)
-            {
-                _imageLoader.width = w;
-                _imageLoader.height = w / imageRatio;
-
-                if(_imageLoader.height < h)
-                {
-                    fraction = h / _imageLoader.height;
-                    _imageLoader.width *= fraction;
-                    _imageLoader.height *= fraction;
-                }
-            }
-            else
-            {
-                _imageLoader.width = h * imageRatio;
-                _imageLoader.height = h;
-
-                if(_imageLoader.width < w)
-                {
-                    fraction = w / _imageLoader.width;
-                    _imageLoader.width *= fraction;
-                    _imageLoader.height *= fraction;
-                }
-            }
-
-            _imageLoader.x = Math.round( (w - _imageLoader.width) * 0.5 );
-            _imageLoader.y = Math.round( (h - _imageLoader.height) * 0.5 ); 
+            _imageLoader.width = w;
+            _imageLoader.height = h;
+            _imageLoader.x = Math.round((_videoPlayerWidth - w)/2);
+            _imageLoader.y = Math.round((_videoPlayerHeight - h)/2);
         }
 
         /**
