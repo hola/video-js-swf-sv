@@ -111,7 +111,9 @@ package com.videojs{
         private function onPlayerIdleChange(e:VideoPlaybackEvent):void{
             _playerIdle = e.type==VideoPlaybackEvent.ON_STREAM_CLOSE;
             showControls(true);
-            if (!_playerIdle)
+            if (_playerIdle)
+                setBuffering(false);
+            else
                 showPoster(false);
         }
 
