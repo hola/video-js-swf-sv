@@ -129,7 +129,10 @@ package com.videojs{
             switch (e.data.info.code){
             case "NetStream.Buffer.Full": setBuffering(false); break;
             case "NetStream.Buffer.Empty":
-            case "NetStream.SeekStart.Notify": setBuffering(true); break;
+            case "NetStream.SeekStart.Notify":
+                if (!_playerIdle)
+                    setBuffering(true);
+                break;
             }
         }
 
