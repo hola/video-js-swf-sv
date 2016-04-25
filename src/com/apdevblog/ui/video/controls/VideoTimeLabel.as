@@ -79,26 +79,24 @@ package com.apdevblog.ui.video.controls
             {
                 // cound down from total to 0
                 var total:Number = _meta != null ? _meta.duration : 0;
-                time = total - time;
-                if(time < 0)
-                {
-                    time = 0;
-                }
+                time = Math.max(0, total - time);
                 _txt.textColor = _style.timerDown;
             }
             else
-            {
                 _txt.textColor = _style.timerUp;
-            }
 
-            var seconds:Number = time % 60;
-            var minutes:Number = (time - seconds) / 60;
+            var seconds:Number = Math.floor(time);
+            var hours:Number = Math.floor(seconds/(60*60));
+            seconds -= hours*60*60;
+            var minutes:Number = Math.floor(seconds/60);
+            seconds -= minutes*60;
 
-            var secondsStr:String = seconds.toString().split(".")[0];
-            secondsStr = StringUtils.padString(secondsStr, 2, "0");
+            var secondsStr:String = StringUtils.padString(seconds.toString(), 2, "0");
             var minutesStr:String = StringUtils.padString(minutes.toString(), 2, "0");
+            var hoursStr:String = hours.toString();
 
-            _txt.text = minutesStr + ":" + secondsStr;
+            _txt.text = (_state == VideoTimeLabel.STATE_COUNT_DOWN ? '-' : '')+
+                (hours ? hoursStr + ':' : '')+minutesStr+':'+secondsStr;
         }
 
         /**
@@ -116,11 +114,11 @@ package com.apdevblog.ui.video.controls
          */
         private function _draw():void
         {
-            _bg = Draw.rect(34, 23, _style.timerBg, _style.timerBgAlpha);
+            _bg = Draw.rect(40, 23, _style.timerBg, _style.timerBgAlpha);
             addChild(_bg);
 
             _txt = new TextField();
-            _txt.width = 34;
+            _txt.width = 40;
             _txt.height = 18;
             _txt.y = 2;
             _txt.selectable = false;
