@@ -76,16 +76,16 @@ package com.videojs{
             _uiBackground.alpha = _model.backgroundAlpha;
             addChild(_uiBackground);
 
-            _style = new ApdevVideoPlayerDefaultStyle();
-            _image = new ImageOverlay(_model.stageRect.width, _model.stageRect.height, _style);
-            showPoster(false);
-            addChild(_image);
-
             _uiVideo = new StageVideoProxy();
             _uiVideo.width = _model.stageRect.width;
             _uiVideo.height = _model.stageRect.height;
             _uiVideo.smoothing = true;
             addChild(_uiVideo);
+
+            _style = new ApdevVideoPlayerDefaultStyle();
+            _image = new ImageOverlay(_model.stageRect.width, _model.stageRect.height, _style);
+            showPoster(false);
+            addChild(_image);
 
             _throbber = new SimpleThrobber();
             _throbber.hideWhenStopped = true;
