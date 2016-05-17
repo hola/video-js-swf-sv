@@ -88,6 +88,8 @@ package com.videojs.providers{
          * unknown or unable to be determined (due to streaming, bitrate switching, etc)
          */
         function get bytesTotal():int;
+
+	function get decodedFrames(): *;
         
         /**
          * Should return a boolean value that indicates whether or not the current media

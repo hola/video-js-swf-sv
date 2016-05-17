@@ -146,6 +146,11 @@ package com.videojs.providers{
             return _audioBytesTotal;
         }
 
+	public function get decodedFrames(): *
+	{
+	    return;
+	}
+
         public function get playing():Boolean{
             return _audioPlaybackStarted;
         }

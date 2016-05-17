@@ -66,7 +66,12 @@ package com.videojs.providers{
         public function set loop(pLoop:Boolean):void{
             _loop = pLoop;
         }
-        
+       
+        public function get decodedFrames(): *
+	{
+	    return _ns && _ns.decodedFrames;
+	}
+
         public function get time():Number{
             if(_ns != null){
                 return _ns.time;

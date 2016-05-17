@@ -67,6 +67,11 @@ package com.videojs{
             return _instance;
         }
 
+        public function get decodedFrames(): *
+	{
+	    return _provider && _provider.decodedFrames;
+	}
+
         public function get mode():String{
             return _mode;
         }

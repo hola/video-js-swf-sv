@@ -296,6 +296,8 @@ package{
                 case "bytesTotal":
                     return _app.model.bytesTotal;
                     break;
+		case "decodedFrames":
+		    return _app.model.decodedFrames;
                 case "videoWidth":
                     return _app.model.videoWidth;
                     break;

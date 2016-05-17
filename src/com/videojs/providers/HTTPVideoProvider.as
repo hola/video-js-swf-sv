@@ -101,6 +101,11 @@ package com.videojs.providers{
             _loop = pLoop;
         }
 
+        public function get decodedFrames(): *
+	{
+	    return _ns && _ns.decodedFrames;
+	}
+
         public function get time():Number{
             if(_ns != null){
                 if(_pausedSeekValue != -1){
