@@ -4,7 +4,7 @@ bin-debug
 *.iml
 http/node_modules
 node_modules
-dist/*
+dist/
 build
 
 *.orig
