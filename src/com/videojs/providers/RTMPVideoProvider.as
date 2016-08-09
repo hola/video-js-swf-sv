@@ -66,7 +66,7 @@ package com.videojs.providers{
         public function set loop(pLoop:Boolean):void{
             _loop = pLoop;
         }
-       
+        
         public function get decodedFrames(): *
 	{
 	    return _ns && _ns.decodedFrames;
@@ -607,6 +607,11 @@ package com.videojs.providers{
             }
             _model.broadcastEvent(new VideoPlaybackEvent(VideoPlaybackEvent.ON_META_DATA, {metadata:_metadata}));
             _model.broadcastEventExternally(ExternalEventName.ON_METADATA, _metadata);
+        }
+
+        public function onTextData(pTextData:Object):void {
+            _model.broadcastEvent(new VideoPlaybackEvent(VideoPlaybackEvent.ON_TEXT_DATA, {textData:pTextData}));
+            _model.broadcastEventExternally(ExternalEventName.ON_TEXT_DATA, pTextData);
         }
         
         public function onCuePoint(pInfo:Object):void{

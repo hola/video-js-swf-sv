@@ -138,6 +138,14 @@ package{
                 _app.model.poster = String(loaderInfo.parameters.poster);
             }
 
+            if(loaderInfo.parameters.muted != undefined && loaderInfo.parameters.muted == "true"){
+                _app.model.muted = true;
+            }
+
+            if(loaderInfo.parameters.loop != undefined && loaderInfo.parameters.loop == "true"){
+                _app.model.loop = true;
+            }
+
             if(loaderInfo.parameters.src != undefined && loaderInfo.parameters.src != ""){
               if (isExternalMSObjectURL(loaderInfo.parameters.src)) {
                 _app.model.srcFromFlashvars = null;
