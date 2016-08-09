@@ -103,6 +103,9 @@ package{
 
         private function finish():void{
 
+            // Pass the whole parameters to the model so that any provider may refer it.
+            _app.model.parameters = loaderInfo.parameters;
+
             if(loaderInfo.parameters.mode != undefined){
                 _app.model.mode = loaderInfo.parameters.mode;
             }
@@ -323,6 +326,15 @@ package{
                     // support native controls not whether it's enabled
                     return _app.model.accelerated;
                     break;
+                case "numberOfLevels":
+                    return _app.model.numberOfLevels;
+                    break;
+                case "level":
+                    return _app.model.level;
+                    break;
+                case "autoLevelEnabled":
+                    return _app.model.autoLevelEnabled;
+                    break;
             }
             return null;
         }
@@ -382,11 +394,14 @@ package{
                 case "rtmpStream":
                     _app.model.rtmpStream = String(pValue);
                     break;
-                default:
-                    _app.model.broadcastErrorEventExternally(ExternalErrorEventName.PROPERTY_NOT_FOUND, pPropertyName);
+                case "level":
+                    _app.model.level = int(pValue);
                     break;
                 case "controls":
                     _app.model.controls = Boolean(pValue);
+                    break;
+                default:
+                    _app.model.broadcastErrorEventExternally(ExternalErrorEventName.PROPERTY_NOT_FOUND, pPropertyName);
                     break;
             }
         }

@@ -117,7 +117,7 @@ package com.videojs{
                 showPoster(false);
         }
 
-        private function setBuffering(buffering:Boolean){
+        private function setBuffering(buffering:Boolean):void{
             if (_buffering==buffering)
                 return;
             if (_model.controls)

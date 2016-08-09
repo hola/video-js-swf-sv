@@ -212,6 +212,7 @@ module.exports = function (grunt) {
         cmdLineOpts.push(f.dest);
       }
 
+      cmdLineOpts.push('-library-path+=libs/flashls.swc');
       cmdLineOpts.push('-target-player=10.2');
       cmdLineOpts.push('-define=CONFIG::version, "' + pkg.version + '"');
       cmdLineOpts.push('--');

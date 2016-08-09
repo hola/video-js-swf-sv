@@ -6,6 +6,7 @@ package com.videojs{
     import com.videojs.providers.HTTPVideoProvider;
     import com.videojs.providers.IProvider;
     import com.videojs.providers.RTMPVideoProvider;
+    import com.videojs.providers.HLSProvider;
     import com.videojs.structs.ExternalErrorEventName;
     import com.videojs.structs.ExternalEventName;
     import com.videojs.structs.PlaybackType;
@@ -45,6 +46,7 @@ package com.videojs{
         private var _rtmpConnectionURL:String = "";
         private var _rtmpStream:String = "";
         private var _poster:String = "";
+        private var _parameters:Object;
 
         private static var _instance:VideoJSModel;
 
@@ -229,7 +231,14 @@ package com.videojs{
             _src = pValue;
             _rtmpConnectionURL = "";
             _rtmpStream = "";
+            // detect HLS by checking the extension of src
+            if(_src && _src.indexOf(".m3u8") != -1){
+                _currentPlaybackType = PlaybackType.HLS;
+                broadcastEventExternally("#HLS# : M3U8 detected!");
+            }
+            else{
             _currentPlaybackType = PlaybackType.HTTP;
+            }
             broadcastEventExternally(ExternalEventName.ON_SRC_CHANGE, _src);
             initProvider();
             if(_autoplay){
@@ -281,7 +290,13 @@ package com.videojs{
          */
         public function set srcFromFlashvars(pValue:String):void {
             _src = pValue;
-            _currentPlaybackType = PlaybackType.HTTP
+            // detect HLS by checking the extension of src
+            if(_src.search(/(https?|file)\:\/\/.*?\.m3u8(\?.*)?/i) != -1){
+                _currentPlaybackType = PlaybackType.HLS;
+            }
+            else{
+                _currentPlaybackType = PlaybackType.HTTP;
+            }
             initProvider();
             if(_autoplay){
                 _provider.play();
@@ -301,6 +316,13 @@ package com.videojs{
                 _poster = pValue;
                 broadcastEvent(new VideoJSEvent(VideoJSEvent.POSTER_SET));
             }
+        }
+        public function get parameters():Object{
+            return _parameters;
+        }
+
+        public function set parameters(pValue:Object):void{
+            _parameters = pValue;
         }
 
         public function get hasEnded():Boolean{
@@ -560,6 +582,51 @@ package com.videojs{
             }
         }
 
+        /**
+         * Returns the number of stream levels that this content has.
+         */
+        public function get numberOfLevels():int
+        {
+            if(_provider){
+                return _provider.numberOfLevels;
+            }
+            return 1;
+        }
+
+        /**
+         * Returns the currently used stream level.
+         */
+        public function get level():int
+        {
+            if(_provider){
+                return _provider.level;
+            }
+            return 0;
+        }
+
+        /**
+         * Select the stream level.
+         * If -1 is specified, it means auto selection.
+         * If a level is specified (0-based index), that level is used and auto selection is disabled.
+         */
+        public function set level(pLevel:int):void
+        {
+            if(_provider){
+                _provider.level = pLevel;
+            }
+        }
+
+        /**
+          * Returns whether auto selection is currently enabled or not.
+          */
+        public function get autoLevelEnabled():Boolean
+        {
+            if(_provider){
+                return _provider.autoLevelEnabled;
+            }
+            return false;
+        }
+
         public function hexToNumber(pHex:String):Number{
             var __number:Number = 0;
             // clean it up
@@ -640,6 +707,15 @@ package com.videojs{
                             streamURL: _rtmpStream
                         };
                         _provider = new RTMPVideoProvider();
+                        _provider.attachVideo(_videoReference);
+                        _provider.init(__src, _autoplay);
+                    }
+                    else if(_currentPlaybackType == PlaybackType.HLS){
+                        __src = {
+                            m3u8: _src,
+                            parameters: _parameters
+                        };
+                        _provider = new HLSProvider();
                         _provider.attachVideo(_videoReference);
                         _provider.init(__src, _autoplay);
                     }

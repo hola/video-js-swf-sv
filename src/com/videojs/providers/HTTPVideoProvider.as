@@ -446,6 +446,25 @@ package com.videojs.providers{
             }
         }
 
+        // This provider supports a stream with single level.
+        public function get numberOfLevels():int{
+            return 1;
+        }
+        public function get level():int{
+            return 0;
+        }
+        public function set level(pLevel:int):void
+        {
+            if (pLevel != 0)
+            {
+                throw "Wrong level.";
+            }
+        }
+        public function get autoLevelEnabled():Boolean
+        {
+            return false;
+        }
+
         private function initNetConnection():void{
             // The video element triggers loadstart as soon as the resource selection algorithm selects a source
             // this is somewhat later than that moment but relatively close
@@ -566,6 +585,8 @@ package com.videojs.providers{
                     break;
 
                 case "NetStream.Buffer.Full":
+                    _model.broadcastEventExternally(ExternalEventName.ON_CAN_PLAY);
+
                     // NetStream.Seek.Notify fires as soon as the
                     // Netstream's internal buffer has been flushed
                     // but HTML should wait to fire "seeked" until
