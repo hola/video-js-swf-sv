@@ -137,7 +137,8 @@ package com.videojs.providers{
 
         public function get readyState():int{
             // if we have metadata and a known duration
-            if(_metadata != null && _metadata.duration != undefined){
+            if(_metadata != null &&
+                (_metadata.duration != undefined || _durationOverride>0)){
                 // if playback has begun
                 if(_playbackStarted){
                     // if the asset can play through without rebuffering
