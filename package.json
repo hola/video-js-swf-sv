@@ -29,11 +29,20 @@
     "grunt-prompt": "~0.1.2",
     "grunt-shell": "~0.6.1",
     "grunt-tagrelease": "~0.3.1",
+    "npm-run-all": "^3.1.0",
     "qunitjs": "~1.12.0",
     "@hola.org/video.js": ">=5.10.2-16 <5.10.2"
   },
   "scripts": {
     "build": "grunt",
+    "login": "c=`npm c ls`; test \"${c#*@hola}\" != \"$c\" || npm login --scope @hola.org",
+    "diff-clean": "git diff --exit-code && git diff --cached --exit-code",
+    "prerelease": "echo \"NOTE: build + checkin dist/ to git before running\"",
+    "release": "run-s diff-clean login release:*",
+    "release:tag": "git tag v$npm_package_version",
+    "release:publish": "npm publish",
+    "release:pushtags": "git push --tags origin",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "version": "chg release -y && grunt dist && git add -f dist/ && git add CHANGELOG.md"
   }
 }
