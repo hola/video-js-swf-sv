@@ -130,6 +130,7 @@ package com.videojs.providers{
                 _model.broadcastEventExternally(ExternalEventName.ON_BUFFER_EMPTY);
                 if(!_isPlaying) {
                   _model.broadcastEventExternally(ExternalEventName.ON_RESUME);
+                  _model.broadcastEventExternally(ExternalEventName.ON_START);
                   _isPlaying = true;
                 }
                 break;
@@ -141,6 +142,7 @@ package com.videojs.providers{
                 _model.broadcastEventExternally(ExternalEventName.ON_BUFFER_FULL);
                 if(!_isPlaying) {
                   _model.broadcastEventExternally(ExternalEventName.ON_RESUME);
+                  _model.broadcastEventExternally(ExternalEventName.ON_START);
                   _isPlaying = true;
                 }
                 _model.broadcastEventExternally(ExternalEventName.ON_CAN_PLAY);
@@ -462,6 +464,7 @@ package com.videojs.providers{
           Log.debug("HLSProvider.resume");
           _hls.stream.resume();
           _model.broadcastEventExternally(ExternalEventName.ON_RESUME);
+          _model.broadcastEventExternally(ExternalEventName.ON_START);
         }
 
         /**
