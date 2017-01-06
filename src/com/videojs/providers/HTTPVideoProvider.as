@@ -332,12 +332,10 @@ package com.videojs.providers{
         public function pause():void{
             var alreadyPaused:Boolean = _isPaused;
             _ns.pause();
-            if(_playbackStarted && !alreadyPaused){
+	    if (!alreadyPaused)
                 _model.broadcastEventExternally(ExternalEventName.ON_PAUSE);
-                if(_isBuffering){
-                    _pausePending = true;
-                }
-            }
+            if (_playbackStarted && !alreadyPaused && _isBuffering)
+                _pausePending = true;
         }
 
         public function resume():void{
