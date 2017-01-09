@@ -104,7 +104,7 @@ package com.videojs.providers{
         };
 
         private function _mediaTimeHandler(event:HLSEvent):void {
-          _position = event.mediatime.position;
+          _position = event.mediatime.position+event.mediatime.live_sliding_main;
           _bufferedTime = event.mediatime.buffer+event.mediatime.position;
           _backBufferedTime = event.mediatime.position - event.mediatime.backbuffer;
           
@@ -474,7 +474,7 @@ package com.videojs.providers{
           Log.debug("HLSProvider.seekBySeconds");
           if(_isManifestLoaded) {
             _position = pTime;
-            _bufferedTime = _position;
+            _backBufferedTime = _bufferedTime = _position;
             _hls.stream.seek(pTime);
           }
         }
@@ -486,7 +486,7 @@ package com.videojs.providers{
           Log.debug("HLSProvider.seekByPercent");
           if(_isManifestLoaded) {
             _position = pPercent*_duration;
-            _bufferedTime = _position;
+            _backBufferedTime = _bufferedTime = _position;
             _hls.stream.seek(pPercent*_duration);
           }
         }
