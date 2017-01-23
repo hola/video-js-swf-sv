@@ -38,7 +38,6 @@ package com.videojs.providers{
         private var _readyState:Number = ReadyState.HAVE_NOTHING;
         private var _position:Number = 0;
         private var _duration:Number = 0;
-        private var _isAutoPlay:Boolean = false;
         private var _isManifestLoaded:Boolean = false;
         private var _isPlaying:Boolean = false;
         private var _isSeeking:Boolean = false;
@@ -93,7 +92,7 @@ package com.videojs.providers{
           _duration = event.levels[0].duration;
           _metadata.width = event.levels[0].width;
           _metadata.height = event.levels[0].height;
-          if(_isAutoPlay || _looping) {
+          if(_model.autoplay || _looping) {
             _looping = false;
             play();
           }
@@ -409,7 +408,6 @@ package com.videojs.providers{
           Log.debug("HLSSettings.maxLevelCappingMode=" + HLSSettings.maxLevelCappingMode);
 
           _src = pSrc;
-          _isAutoPlay = pAutoplay;
           load();
           return;
         }
