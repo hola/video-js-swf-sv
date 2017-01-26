@@ -192,7 +192,8 @@ package com.videojs.providers{
         }
 
         public function appendBuffer(bytes:ByteArray):void{
-            _ns.appendBytes(bytes);
+            if (_ns)
+                _ns.appendBytes(bytes);
         }
 
         public function endOfStream():void{
@@ -202,7 +203,8 @@ package com.videojs.providers{
 
         public function abort():void{
             // flush the netstream buffers
-            _ns.seek(time);
+            if (_ns)
+                _ns.seek(time);
         }
 
         public function discontinuity():void{
