@@ -104,8 +104,8 @@ package com.videojs.providers{
 
         private function _mediaTimeHandler(event:HLSEvent):void {
           _position = event.mediatime.position+event.mediatime.live_sliding_main;
-          _bufferedTime = event.mediatime.buffer+event.mediatime.position;
-          _backBufferedTime = event.mediatime.position - event.mediatime.backbuffer;
+          _bufferedTime = event.mediatime.buffer+_position;
+          _backBufferedTime = _position-event.mediatime.backbuffer;
           
           if(event.mediatime.duration != _duration) {
             _duration = event.mediatime.duration;
